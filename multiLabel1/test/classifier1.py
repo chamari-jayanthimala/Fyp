@@ -23,7 +23,9 @@ from skmultilearn.problem_transform import BinaryRelevance
 from sklearn.naive_bayes import GaussianNB
 from wordcloud import WordCloud
 
-df = pd.read_csv("essays3.csv", encoding = "cp1252")
+
+df = pd.read_csv("merged.csv", encoding = "cp1252")
+
 
 df_personalities = df.drop(['#AUTHID','text'], axis=1)
 counts = []
@@ -115,7 +117,11 @@ NB_pipeline = Pipeline([
                     fit_prior=True, class_prior=None))),
 ])
 
-
+# NB_pipeline = Pipeline([
+#                 ('tfidf', TfidfVectorizer(stop_words=stop_words)),
+#                 ('clf', OneVsRestClassifier(MultinomialNB(
+#                     fit_prior=True, class_prior=None))),
+#             ])
 # SVM_pipeline = Pipeline([('feature_selection', SelectFromModel(LinearSVC(penalty="l1", dual=False))),
 #                       ('clf', SGDClassifier(loss='hinge', penalty='l2',
 #                                             alpha=1e-3, random_state=42,
