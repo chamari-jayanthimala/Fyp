@@ -22,6 +22,8 @@ from sklearn.linear_model import SGDClassifier
 from skmultilearn.problem_transform import BinaryRelevance
 from sklearn.naive_bayes import GaussianNB
 from wordcloud import WordCloud
+from skmultilearn.problem_transform import ClassifierChain
+
 
 df = pd.read_csv("essays3.csv", encoding = "cp1252")
 
@@ -133,11 +135,14 @@ NB_pipeline = Pipeline([
 # accuracy
 # print("Accuracy = ",accuracy_score(y_test,predictions))
 #######
+#
+# for category in categories:
+#     print('... Processing {}'.format(category))
+#     #train the model using X_dtm & y
+#     NB_pipeline.fit(X, train[category])
+#     #compute the testing accuracy
+#     prediction = NB_pipeline.predict(Y)
+#     print('Test accuracy is {}'.format(accuracy_score(test[category], prediction)))
 
-for category in categories:
-    print('... Processing {}'.format(category))
-    #train the model using X_dtm & y
-    NB_pipeline.fit(X, train[category])
-    #compute the testing accuracy
-    prediction = NB_pipeline.predict(Y)
-    print('Test accuracy is {}'.format(accuracy_score(test[category], prediction)))
+# initialize classifier chains multi-label classifier
+classifier = ClassifierChain(LogisticRegression())
